@@ -4,6 +4,8 @@ WORKDIR /user/src
 
 COPY package.json ./
 
+RUN echo "fetch-retry-maxtimeout=60000" >> ~/.npmrc
+RUN echo "registry=https://registry.yarnpkg.com" >> ~/.npmrc
 RUN npm install
 
 COPY . .
