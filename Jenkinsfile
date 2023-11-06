@@ -3,13 +3,13 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'docker build -t fe-nextjs .' 
+                sh 'docker build -t frontend .' 
                 sh 'docker-compose up --build'
             }
         }
         stage('Tag') { 
             steps {
-                sh 'docker tag fe-nextjs trinhviethoang16/frontend'
+                sh 'docker tag frontend trinhviethoang16/frontend'
             }
         }
         stage('Push') { 
