@@ -1,7 +1,7 @@
 import React from "react";
 import { Shape } from "../utils/enum";
 import { getValidArray } from "../utils/isArray";
-import Figure from "./Figure";
+import Figure from "./figure";
 
 interface DrawFigureProps {
   color: string;
