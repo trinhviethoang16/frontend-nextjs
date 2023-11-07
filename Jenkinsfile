@@ -20,14 +20,18 @@ pipeline {
                 }
             }
         }
-        // stage('Pull and Run') { 
-        //     steps {
-        //         sh 'docker pull trinhviethoang16/frontend && docker run -d -p 3000:3000 trinhviethoang16/frontend'
-        //     }
-        // }
-        stage('Restart Vagrant') { 
+        stage('Deploy') { 
             steps {
-                sh 'vagrant provision'
+                script {
+                    def sshConfig = sh(script: 'vagrant ssh-config', returnStdout: true).trim()
+                    def match = sshConfig =~ /HostName\s+(\S+)/
+                    if (match) {
+                        def vagrantIp = match[0][1]
+                        sh "ssh vagrant@${vagrantIp} \"docker pull trinhviethoang16/frontend && docker run -d -p 3500:3000 trinhviethoang16/frontend\""
+                    } else {
+                        error "Failed to retrieve Vagrant IP"
+                    }
+                }
             }
         }
     }
