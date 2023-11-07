@@ -3,20 +3,31 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'docker-compose build' 
+                sh 'docker build -t frontend .' 
+                // sh 'docker-compose up --build'
+            }
+        }
+        stage('Tag') { 
+            steps {
+                sh 'docker tag frontend trinhviethoang16/frontend'
             }
         }
         stage('Push') { 
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                    sh 'docker-compose push' 
+                    sh 'docker login -u $USERNAME -p $PASSWORD'
+                    sh 'docker push trinhviethoang16/frontend' 
                 }
             }
         }
-        stage('Deploy') { 
+        // stage('Pull and Run') { 
+        //     steps {
+        //         sh 'docker pull trinhviethoang16/frontend && docker run -d -p 3000:3000 trinhviethoang16/frontend'
+        //     }
+        // }
+        stage('Restart Vagrant') { 
             steps {
-                sh 'docker-compose down'
-                sh 'docker-compose up -d'
+                sh 'vagrant provision'
             }
         }
     }
