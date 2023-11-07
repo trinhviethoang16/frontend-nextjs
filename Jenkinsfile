@@ -23,7 +23,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 sshagent(credentials: ['vagrant-ssh']) {
-                    sh 'ssh vagrant@192.168.21.128:22 "docker pull your-dockerhub-username/your-image-name && docker run -d -p 3000:3000 your-dockerhub-username/your-image-name"'
+                    sh 'ssh vagrant@192.168.21.128:22 "docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest"'
                 }
             }
         }
