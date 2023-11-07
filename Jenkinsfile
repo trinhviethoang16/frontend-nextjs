@@ -22,6 +22,8 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
+                sh 'docker stop frontend || true'
+                sh 'docker rm frontend || true'
                 sh 'docker pull trinhviethoang16/frontend && docker run -d -p 3000:3000 trinhviethoang16/frontend'
             }
         }
