@@ -22,15 +22,8 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                script {
-                    def sshConfig = sh(script: 'vagrant ssh-config', returnStdout: true).trim()
-                    def match = sshConfig =~ /HostName\s+(\S+)/
-                    if (match) {
-                        def vagrantIp = match[0][1]
-                        sh "ssh vagrant@${vagrantIp} \"docker pull trinhviethoang16/frontend && docker run -d -p 3500:3000 trinhviethoang16/frontend\""
-                    } else {
-                        error "Failed to retrieve Vagrant IP"
-                    }
+                sshagent(credentials: ['vagrant-ssh']) {
+                    sh 'ssh vagrant@192.168.21.128:22 "docker pull your-dockerhub-username/your-image-name && docker run -d -p 3000:3000 your-dockerhub-username/your-image-name"'
                 }
             }
         }
