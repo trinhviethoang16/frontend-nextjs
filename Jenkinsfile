@@ -4,7 +4,6 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'docker build -t frontend .' 
-                // sh 'docker-compose up --build'
             }
         }
         stage('Tag') { 
@@ -23,7 +22,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 sshagent(credentials: ['vagrant-ssh']) {
-                    sh 'ssh vagrant@192.168.21.128:22 "docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest"'
+                    sh 'ssh vagrant@192.168.21.128 "docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest"'
                 }
             }
         }
