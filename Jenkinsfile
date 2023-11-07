@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'docker build -t frontend .' 
-                sh 'docker-compose up --build'
+                // sh 'docker-compose up --build'
             }
         }
         stage('Tag') { 
