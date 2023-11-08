@@ -26,7 +26,8 @@ pipeline {
                 //     sh 'docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest'
                 // }
                 sshagent (credentials: ['vagrant-ssh']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l vagrant 192.168.21.128 docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest'
+                    sh 'ssh -o StrictHostKeyChecking=no -l vagrant vagrant@192.168.21.128'
+                    sh 'docker pull trinhviethoang16/frontend:latest && docker run -d -p 3500:3000 trinhviethoang16/frontend:latest'
                 }
             }
         }
