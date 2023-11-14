@@ -11,11 +11,6 @@ pipeline {
                 sh 'docker build -t trinhviethoang16/frontend:develop .' 
             }
         }
-        stage('Tag') { 
-            steps {
-                sh 'docker tag frontend trinhviethoang16/frontend:develop' 
-            }
-        }
         stage('Deploy') { 
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
