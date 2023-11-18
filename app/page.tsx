@@ -50,7 +50,7 @@ export default function Home() {
       <div className="login-layout">
         <div className="login-content-layout">
           <div className="login-form">
-            <div className="login-title">Nguyen pressing</div>
+            <div className="login-title">Nguyen pressing wibu</div>
             <div className="mb-3">
               <label htmlFor="email" className="login-text mb-2">
                 Email
